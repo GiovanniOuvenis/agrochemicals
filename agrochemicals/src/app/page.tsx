@@ -1,11 +1,24 @@
 import styles from './page.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <h1> This is the first thing created in this project</h1>
-      </div>
+      <Link href="/agrochemicals">      
+        <h1 className={styles.title}> Agrochemicals</h1>
+      </Link> 
+        <div className={styles.categories}>
+          <Link href="agrochemicals/herbicides">
+            <h1 className={styles.category}>Herbicides</h1>
+            </Link>
+            <Link href="agrochemicals/pesticides">
+            <h1 className={styles.category}>Pesticides</h1>
+            </Link>
+            <Link href="agrochemicals/fungicides">
+            <h1 className={styles.category}>Fungicides</h1>
+            </Link>
+        </div>
+      
     </main>
   )
 }

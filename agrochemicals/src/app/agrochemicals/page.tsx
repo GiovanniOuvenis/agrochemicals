@@ -1,32 +1,35 @@
-"use client"
+'use client'
+
 import React, {useState, useEffect} from 'react'
 
-type Props = {}
 
-
-
-export default async function SelectedAgrochemicals  (props: Props)  {
- const [crops, setCrops] = useState<string[]>([])
-  
-  useEffect( ()   => {
-    (async () => {
+export default async function SelectedAgrochemicals  ()  {
+ const [crops, setCrops] = useState<string[]>([]) 
+ 
+  useEffect( ()   => {    
       const getDocuments = async () => {
-        const result = await fetch("http://localhost:3000/api/agrochemicals", {method: "GET",
-mode: "cors",
-headers: {
-  'Content-Type': 'application/json',
-  "Access-control-allow-origin": "*"
-},}) 
-const rslt = await result.json()
-return rslt
-      } 
-   const finalRslt = await getDocuments();
-   setCrops(finalRslt.crops)
-    
-    })();
-  
+        const result = await fetch("http://localhost:3000/api/agrochemicals", 
+        {method: "GET",
+         mode: "cors",
+        headers: {
+        'Content-Type': 'application/json',
+         "Access-control-allow-origin": "*"
+},}).then((fetchedData) => {
+  const toJSON = fetchedData.json(); 
+  return toJSON 
+}).then((data)=>{
+  console.log(data)
+  setCrops(data.crops[0].name)
+})
+   return result;
+}
+ 
+getDocuments()    
   }, [])
+
   
+
+ 
 
   return (
     <>

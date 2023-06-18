@@ -4,5 +4,4 @@ type selectProps = {
     insect : string[],
     fungus: string[],
     herb: string[]
-
 }

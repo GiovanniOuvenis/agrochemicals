@@ -9,6 +9,7 @@ export default function Home() {
       <Link href="/agrochemicals">      
         <h1 className={styles.title}> Agrochemicals</h1>
       </Link> 
+      <h1>just another h1</h1>
         <div className={styles.categories}>
           <Link href="agrochemicals/herbicides">
             <h1 className={styles.category}>Herbicides</h1>

@@ -1,36 +1,43 @@
+import { chemicalDocument } from "@/types/mongodb";
 import { createSlice , PayloadAction} from "@reduxjs/toolkit";
 
+type filterObject = Partial<chemicalDocument>
+const filters : filterObject[] = []
+const added : boolean = false
+const removed : boolean = false
 
-type selected = {
-    crop : string,
-    target : string,
-    chemical: string
-};
-
-const initialState = {
-    crop : "all",
-    target: "none",
-    chemical: "none"
-} as selected
+const initialState = {  
+  filters,
+  added,
+  removed
+} 
 
 export const selectedSlice = createSlice({
     name: "selected",
     initialState,
     reducers : {
-        setCrop : (state, action : PayloadAction<string>) => {
-          state.crop = action.payload
-        },
-        setTarget : (state, action : PayloadAction<string>) => {
-            state.target = action.payload
-        },
-        setChemical : (state, action: PayloadAction<string>) => {
-            state.chemical = action.payload
-        }
+        addFilter : (state, action : PayloadAction<filterObject>) => {  
+          state.filters.push(action.payload)
+        },        
+        removeFilter : (state, action : PayloadAction<filterObject>) => {  
+           state.filters =  state.filters.filter((cf)=> {
+            const keyName = Object.keys(cf)[0]   
+            return cf[keyName as keyof chemicalDocument] !== action.payload[keyName as keyof chemicalDocument]
+            })
+         
+          },
+          remove : (state, action: PayloadAction<string>) =>{
+            state.removed = !state.removed
+          },
+          add : (state, action: PayloadAction<string>) =>{
+            state.added = !state.added
+          }
+        
     }
  
 })
 
-export const { setCrop, setTarget, setChemical } = selectedSlice.actions
+export const { addFilter , removeFilter, remove, add} = selectedSlice.actions
 
 const selectedReducer = selectedSlice.reducer;
 
